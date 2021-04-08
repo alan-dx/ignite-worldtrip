@@ -1,4 +1,5 @@
 import { Flex, Box, Text, Image, Divider } from '@chakra-ui/react'
+import { Swiper } from '../components/Swiper'
 
 export default function Home() {
   return (
@@ -6,17 +7,18 @@ export default function Home() {
       direction="column"
     >
       <Flex
-        h={335}
+        h={["100px", "335px"]}
         backgroundImage="url('/images/banner.jpg')"
         backgroundRepeat="no-repeat"
         backgroundPosition="center"
+        backgroundSize="cover"
+        justify="center"
       >
         <Flex 
           w="100%" 
-          maxWidth={1480}
+          maxWidth="1140px"
           align="center"
           justify="space-between"
-          px="36"
           position="relative"
         >
           <Text 
@@ -35,21 +37,16 @@ export default function Home() {
               Chegou a hora de tirar do papel a viagem que você sempre sonhou. 
             </Text>
           </Text>
-          <Image 
-            src="/images/airplane.svg"
-            mt="40"
-            zIndex="1"
-            justifySelf="flex-end"
-          />
         </Flex>
       </Flex>
 
-      <Flex 
-        maxWidth={1480} 
-        px="36"
+      <Flex
+        w="100%"
+        maxWidth="1140px"
         mt="28"
         direction="column"
         align="center"
+        alignSelf="center"
       >
         <Flex
           w="100%"
@@ -110,6 +107,8 @@ export default function Home() {
           Vamos nessa?<br/>
           Então escolha seu continente
         </Text>
+
+        <Swiper />
       </Flex>
 
     </Flex>
