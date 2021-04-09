@@ -1,7 +1,24 @@
 import { Flex, Box, Text, Image, Divider } from '@chakra-ui/react'
+import { GetStaticProps } from 'next'
 import { Swiper } from '../components/Swiper'
 
-export default function Home() {
+import getPrismicClient from '../services/prismic'
+import Prismic from '@prismicio/client'
+
+export type Continent = {
+  slug: string;
+  data: {
+    continent_name: string;
+    continent_description: string;
+    continent_image: string;
+  }
+}
+
+export interface HomeProps {
+  continents: Continent[]
+}
+
+export default function Home({continents}: HomeProps) {
   return (
     <Flex 
       direction="column"
@@ -108,9 +125,38 @@ export default function Home() {
           Então escolha seu continente
         </Text>
 
-        <Swiper />
+        <Swiper continents={continents} />
       </Flex>
 
     </Flex>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+
+  const prismic = getPrismicClient()
+
+  const response = await prismic.query([
+    Prismic.Predicates.at('document.type', 'continents')
+  ], {
+    fetch: ['continents.continent_name', 'continents.continent_description', 'continents.continent_image']
+  })
+
+  const continents = response.results.map(continent => {
+    return {
+      slug: continent.uid,
+      data: {
+        continent_name: continent.data.continent_name[0].text,
+        continent_description: continent.data.continent_description[0].text,
+        continent_image: continent.data.continent_image.url
+      }
+    }
+  })
+
+  return {
+    props: {
+      continents
+    },
+    revalidate: 60 * 60 * 24 //24 hours
+  }
 }

@@ -1,24 +1,14 @@
 import { Flex, Box, Text, Image, Divider } from '@chakra-ui/react'
 import { useState } from 'react'
+import Link from 'next/link'
+
 import { SwiperItem } from './SwiperItem'
+import { HomeProps as SwiperProps, Continent } from '../../pages/index'
 
-export function Swiper() {
-
-  const continents = [
-    {
-      name: "Europa",
-      description: "O continente mais antigo.",
-      image: '/images/eiffel.jpg'
-    },
-    {
-      name: "África",
-      description: "O gigantesco continente.",
-      image: '/images/african.jpg'
-    }
-  ]
+export function Swiper({ continents }: SwiperProps) {
 
   const [ currentContinentIndex, setCurrentContinentIndex ] = useState(0)
-  const [ currentContinent, setCurrentContinent ] = useState(continents[currentContinentIndex])
+  const [ currentContinent, setCurrentContinent ] = useState<Continent>(continents[currentContinentIndex])
 
   function nextItem() {
 
@@ -44,18 +34,21 @@ export function Swiper() {
 
   return (
     <Flex w="100%" align="center" justify="center" mt="24" mb="8">
-      <Flex
-        backgroundImage={`url(${currentContinent.image})`}
-        backgroundPosition="center"
-        backgroundRepeat="no-repeat"
-        backgroundSize="cover"
-        w="100%"
-        maxW="1140px"
-        cursor="pointer"
-        h="96"
-      >
-        <SwiperItem current={currentContinent} next={nextItem} prev={prevItem} />
-      </Flex>
+      <Link href={`continent/${currentContinent.slug}`}>
+        <Flex
+          backgroundImage={`url(${currentContinent.data.continent_image})`}
+          backgroundPosition="center"
+          backgroundRepeat="no-repeat"
+          backgroundSize="cover"
+          w="100%"
+          maxW="1140px"
+          cursor="pointer"
+          h="96"
+          zIndex="0"
+        >
+          <SwiperItem current={currentContinent} next={nextItem} prev={prevItem} />
+        </Flex>
+      </Link>
     </Flex>
   )
 }
