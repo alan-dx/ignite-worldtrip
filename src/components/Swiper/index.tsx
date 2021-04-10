@@ -1,9 +1,10 @@
-import { Flex, Box, Text, Image, Divider } from '@chakra-ui/react'
+import { Flex, Button, Icon } from '@chakra-ui/react'
 import { useState } from 'react'
 import Link from 'next/link'
 
 import { SwiperItem } from './SwiperItem'
 import { HomeProps as SwiperProps, Continent } from '../../pages/index'
+import { FiChevronRight, FiChevronLeft } from 'react-icons/fi'
 
 export function Swiper({ continents }: SwiperProps) {
 
@@ -34,7 +35,6 @@ export function Swiper({ continents }: SwiperProps) {
 
   return (
     <Flex w="100%" align="center" justify="center" mt="24" mb="8">
-      <Link href={`continent/${currentContinent.slug}`}>
         <Flex
           backgroundImage={`url(${currentContinent.data.continent_image})`}
           backgroundPosition="center"
@@ -42,13 +42,17 @@ export function Swiper({ continents }: SwiperProps) {
           backgroundSize="cover"
           w="100%"
           maxW="1140px"
-          cursor="pointer"
           h="96"
-          zIndex="0"
+          position="relative"
         >
-          <SwiperItem current={currentContinent} next={nextItem} prev={prevItem} />
+          <Button onClick={prevItem} bg="transparent" position="absolute" top="48" left="4px" >
+            <Icon as={FiChevronLeft} fontSize="48" color="yellow.900" />
+          </Button>
+          <SwiperItem current={currentContinent} />
+          <Button onClick={nextItem} bg="transparent" position="absolute" top="48" right="4px" >
+            <Icon as={FiChevronRight} fontSize="48" color="yellow.900" />
+          </Button>
         </Flex>
-      </Link>
     </Flex>
   )
 }
