@@ -1,9 +1,10 @@
-import { Flex, Box, Text, Image, Divider } from '@chakra-ui/react'
+import { Flex, Box, Text, Image, Divider, useBreakpointValue, SimpleGrid } from '@chakra-ui/react'
 import { GetStaticProps } from 'next'
 import { Swiper } from '../components/Swiper'
 
 import getPrismicClient from '../services/prismic'
 import Prismic from '@prismicio/client'
+import { CircleIcon } from '../components/CircleIcon'
 
 export type Continent = {
   slug: string;
@@ -19,12 +20,18 @@ export interface HomeProps {
 }
 
 export default function Home({continents}: HomeProps) {
+
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true
+  })
+
   return (
     <Flex 
       direction="column"
     >
       <Flex
-        h={["100px", "335px"]}
+        h={["200px", "335px"]}
         backgroundImage="url('/images/banner.jpg')"
         backgroundRepeat="no-repeat"
         backgroundPosition="center"
@@ -37,17 +44,18 @@ export default function Home({continents}: HomeProps) {
           align="center"
           justify="space-between"
           position="relative"
+          px={!isWideVersion && '2'} 
         >
           <Text 
             color="gray.50" 
             justifySelf="flex-start"
-            fontSize="4xl"
+            fontSize={["3xl","4xl"]}
             fontWeight="500"
           >
             5 Continentes,<br/>
             infinitas possibilidades.
             <Text
-              fontSize="lg"
+              fontSize={["md","lg"]}
               fontWeight="400"
               mt="5"
             >
@@ -60,65 +68,113 @@ export default function Home({continents}: HomeProps) {
       <Flex
         w="100%"
         maxWidth="1140px"
-        mt="28"
+        mt={isWideVersion ? "28" : "14"}
         direction="column"
         align="center"
         alignSelf="center"
       >
-        <Flex
+        <SimpleGrid 
+          flex="1"
+          rowGap="12"
+          gap="4"
+          minChildWidth="100px"
           w="100%"
           align="center"
           justify="space-between"
         >
-          <Box
+          <Flex
             textAlign="center"
+            direction={isWideVersion ? 'column' : 'row'}
+            align="center"
+            justify="center"
           >
-            <Image 
+            {isWideVersion ? (
+            <Image
               src="/icons/cocktail.svg"
               mx="auto"
             />
-            <Text fontWeight="700" fontSize="2xl" mt="6">vida noturna</Text>
-          </Box>
-          <Box
+            ) : (
+              <CircleIcon />
+            )}
+            <Text fontWeight={isWideVersion ? '700' : '500'} fontSize="xl" ml={!isWideVersion && '2'}>vida noturna</Text>
+          </Flex>
+          <Flex
             textAlign="center"
+            direction={isWideVersion ? 'column' : 'row'}
+            align="center"
+            justify="center"
           >
-            <Image 
+            {isWideVersion ? (
+            <Image
               src="/icons/surf.svg"
               mx="auto"
             />
-            <Text fontWeight="700" fontSize="2xl" mt="6">praia</Text>
-          </Box>
-          <Box
+            ) : (
+              <CircleIcon />
+            )}
+            <Text fontWeight={isWideVersion ? '700' : '500'} fontSize="xl" ml={!isWideVersion && '2'}>praia</Text>
+          </Flex>
+          <Flex
             textAlign="center"
+            direction={isWideVersion ? 'column' : 'row'}
+            align="center"
+            justify="center"
           >
-            <Image 
+            {isWideVersion ? (
+            <Image
               src="/icons/building.svg"
               mx="auto"
             />
-            <Text fontWeight="700" fontSize="2xl" mt="6">moderno</Text>
-          </Box>
-          <Box
+            ) : (
+              <CircleIcon />
+            )}
+            <Text fontWeight={isWideVersion ? '700' : '500'} fontSize="xl" ml={!isWideVersion && '2'}>moderno</Text>
+          </Flex>
+          <Flex
             textAlign="center"
+            direction={isWideVersion ? 'column' : 'row'}
+            align="center"
+            justify="center"
           >
-            <Image 
+            {isWideVersion ? (
+            <Image
               src="/icons/museum.svg"
               mx="auto"
             />
-            <Text fontWeight="700" fontSize="2xl" mt="6">clássico</Text>
-          </Box>
-        </Flex>
+            ) : (
+              <CircleIcon />
+            )}
+            <Text fontWeight={isWideVersion ? '700' : '500'} fontSize="xl" ml={!isWideVersion && '2'}>clássico</Text>
+          </Flex>
+          <Flex
+            textAlign="center"
+            direction={isWideVersion ? 'column' : 'row'}
+            align="center"
+            justify="center"
+          >
+            {isWideVersion ? (
+            <Image
+              src="/icons/world.svg"
+              mx="auto"
+            />
+            ) : (
+              <CircleIcon />
+            )}
+            <Text fontWeight={isWideVersion ? '700' : '500'} fontSize="xl" ml={!isWideVersion && '2'}>e mais...</Text>
+          </Flex>
+        </SimpleGrid>
         
         <Divider 
           bg="gray.800" 
           h="1" 
           w="24" 
-          mt="20" 
+          mt={isWideVersion ? '28' : '14'}
         />
         
         <Text 
           textAlign="center" 
-          mt="24"
-          fontSize="4xl"
+          mt={isWideVersion ? '28' : '14'}
+          fontSize={["2xl","4xl"]}
           fontWeight="500"
         >
           Vamos nessa?<br/>

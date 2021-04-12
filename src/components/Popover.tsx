@@ -15,12 +15,12 @@ export function Popover() {
   return (
     <PopoverChakra>
       <PopoverTrigger>
-        <Icon fontSize="14" color="gray.500" as={FiInfo} />
+        <Icon fontSize="12" color="gray.500" as={FiInfo} />
       </PopoverTrigger>
       <PopoverContent position="absolute">
         <PopoverArrow />
         <PopoverCloseButton />
-        <PopoverHeader fontSize="2xl" >Informação</PopoverHeader>
+        <PopoverHeader fontSize="2xl" >O que é? </PopoverHeader>
         <PopoverBody fontWeight="400" fontSize="md" >Uma lista de quantas cidades +100 este continente tem.</PopoverBody>
       </PopoverContent>
     </PopoverChakra>

@@ -1,6 +1,5 @@
-import { Flex, Button, Icon } from '@chakra-ui/react'
+import { Flex, Button, Icon, useBreakpointValue } from '@chakra-ui/react'
 import { useState } from 'react'
-import Link from 'next/link'
 
 import { SwiperItem } from './SwiperItem'
 import { HomeProps as SwiperProps, Continent } from '../../pages/index'
@@ -10,6 +9,11 @@ export function Swiper({ continents }: SwiperProps) {
 
   const [ currentContinentIndex, setCurrentContinentIndex ] = useState(0)
   const [ currentContinent, setCurrentContinent ] = useState<Continent>(continents[currentContinentIndex])
+
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true
+  })
 
   function nextItem() {
 
@@ -34,7 +38,9 @@ export function Swiper({ continents }: SwiperProps) {
   }
 
   return (
-    <Flex w="100%" align="center" justify="center" mt="24" mb="8">
+    
+
+    <Flex w="100%" align="center" justify="center" mt={isWideVersion ? '24' : '6'} mb="8">
         <Flex
           backgroundImage={`url(${currentContinent.data.continent_image})`}
           backgroundPosition="center"
@@ -45,12 +51,12 @@ export function Swiper({ continents }: SwiperProps) {
           h="96"
           position="relative"
         >
-          <Button onClick={prevItem} bg="transparent" position="absolute" top="48" left="4px" >
-            <Icon as={FiChevronLeft} fontSize="48" color="yellow.900" />
+          <Button onClick={prevItem} bg="transparent" position="absolute" top="48" left="0.5" >
+            <Icon as={FiChevronLeft} fontSize={["34","48"]} color="yellow.900" />
           </Button>
           <SwiperItem current={currentContinent} />
-          <Button onClick={nextItem} bg="transparent" position="absolute" top="48" right="4px" >
-            <Icon as={FiChevronRight} fontSize="48" color="yellow.900" />
+          <Button onClick={nextItem} bg="transparent" position="absolute" top="48" right="0.5" >
+            <Icon as={FiChevronRight} fontSize={["34","48"]} color="yellow.900" />
           </Button>
         </Flex>
     </Flex>
